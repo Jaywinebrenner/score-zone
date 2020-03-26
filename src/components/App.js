@@ -7,7 +7,7 @@ class App extends React.Component {
   state = {
     players: [
       {
-        name: "Guil",
+        name: "Clanker",
         score: 0,
         id: 1
       },
@@ -17,12 +17,12 @@ class App extends React.Component {
         id: 2
       },
       {
-        name: "Ashley",
+        name: "Head Ache",
         score: 0,
         id: 3
       },
       {
-        name: "James",
+        name: "Donko",
         score: 0,
         id: 4
       }
@@ -33,8 +33,36 @@ handleScoreChange = (index, delta) => {
     this.setState( prevState => ({
       score: prevState.players[index].score += delta
     }));
-
   }
+
+  handleAddPlayer = (name) => {
+    this.setState( prevState => {
+      return {
+        players: [
+          ...prevState.players,
+          {
+            name,
+            score: 0,
+            id: this.prevPlayerId += 1
+          }
+        ]
+      }
+    });
+  }
+
+  // ALTERNATE WAY TO UPDATE HANDLEADDPLAYER USING CONCAT
+//   handleAddPlayer = (name) => {
+//   let newPlayer = {
+//     name,
+//     score: 0,
+//     id: this.prevPlayerId += 1
+//   };
+//   this.setState( prevState => ({
+//     players: prevState.players.concat(newPlayer)
+//   }));
+// }
+
+prevPlayerId = 4;
 
   handleRemovePlayer = (id) => {
     this.setState( prevState => {
@@ -64,7 +92,9 @@ handleScoreChange = (index, delta) => {
             changeScore={this.handleScoreChange}
           />
         )}
-        <AddPlayerForm />
+        <AddPlayerForm
+          addPlayer={this.handleAddPlayer}
+          />
       </div>
     );
   }
