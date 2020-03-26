@@ -16,7 +16,10 @@ class Stopwatch extends Component {
 // componentDidMount fires the function right away - during the mounting of the component.
   componentDidMount() {
     this.intervalID = setInterval( () => this.tick(), 100);
+  }
 
+  ccompoomponentWillUnmount() {
+    clearInterval(this.intervalID);
   }
 
   tick = () => {
